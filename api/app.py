@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from models import Viagens, db, create_tables
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:JgzAfm9CnOo1@ep-autumn-bar-a4pu7579-pooler.us-east-1.aws.neon.tech:5432/verceldb' # não pode ficar diretamente no código, falha de segurança gravissima
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:kaDLqePyI4b9@ep-crimson-poetry-a4wbybo0.us-east-1.aws.neon.tech:5432/verceldb' # não pode ficar diretamente no código, falha de segurança gravissima
 db.init_app(app)
 
 @app.route('/')
