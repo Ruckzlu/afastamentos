@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Viagens</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .back-button {
+            background-color: #ff0000; /* Cor de fundo vermelha */
+            color: #fff; /* Cor do texto branca */
+            border: none; /* Remove a borda */
+            border-radius: 5px; /* Borda arredondada */
+            padding: 10px 20px; /* Espaçamento interno */
+            cursor: pointer; /* Mostra o cursor como ponteiro */
+            margin-top: 20px; /* Espaçamento de 20px acima do botão */
+        }
+
+        .back-button::before {
+            content: '\2190'; /* Adiciona uma seta para a esquerda como conteúdo antes do botão */
+            margin-right: 5px; /* Espaçamento à direita da seta */
+        }
+        .delete-button {
+            background-color: #ff0000; /* Cor de fundo vermelha */
+            color: #fff; /* Cor do texto branca */
+            border: none; /* Remove a borda */
+            border-radius: 50%; /* Borda arredondada para formar um círculo */
+            padding: 5px 8px; /* Espaçamento interno */
+            cursor: pointer; /* Mostra o cursor como ponteiro */
+        }
+    </style>
+</head>
+<body>
+    <h1>Relatório de Afastamentos</h1>
+    <table id="tabela_viagens">
+        <thead>
+            <tr>
+                <th>Post/Grad</th>
+                <th>Nome</th>
+                <th>Data de Ida</th>
+                <th>Data de Volta</th>
+                <th>Destino</th>
+                <th>Ações</th> <!-- Adiciona uma coluna para ações -->
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button onclick="window.history.back()" class="back-button">Voltar</button>
+    <script>
+        $(document).ready(function(){
+            $.getJSON('/dados_viagens', function(data){
+                $.each(data, function(index, viagem){
+                    $('#tabela_viagens tbody').append(
+                        '<tr>' +
+                        '<td>' + viagem[0] + '</td>' +
+                        '<td>' + viagem[1] + '</td>' +
+                        '<td>' + viagem[2] + '</td>' +
+                        '<td>' + viagem[3] + '</td>' +
+                        '<td>' + viagem[4] + '</td>' +
+                        '<td><button class="delete-button">X</button></td>' + // Adiciona um botão de exclusão
+                        '</tr>'
+                    );
+                });
+            });
+
+            // Adiciona evento de clique para os botões de exclusão
+            $(document).on('click', '.delete-button', function() {
+                if (confirm('Tem certeza que deseja excluir esta viagem?')) {
+                    var row = $(this).closest('tr');
+                    var postGrad = row.find('td:eq(0)').text();
+                    var nome = row.find('td:eq(1)').text();
+                    var ida = row.find('td:eq(2)').text();
+                    var volta = row.find('td:eq(3)').text();
+                    var destino = row.find('td:eq(4)').text();
+                    $.post('/delete_viagem', { postGrad: postGrad, nome: nome, ida: ida, volta: volta, destino: destino }, function(data) {
+                        if (data.success) {
+                            row.remove(); // Remove a linha da tabela
+                            alert('Afastamento excluído com sucesso!');
+                        } else {
+                            alert('Erro ao excluir afastastamento. Tente novamente.');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

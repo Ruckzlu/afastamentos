@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column; /* Mudança para colocar os elementos em coluna */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .button {
+            width: 200px;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+            line-height: 50px; /* Centraliza verticalmente o texto */
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Cadastro de Afastamentos da DP</h1>
+    <div class="button-container">
+        <a href="/cadastro" class="button">Cadastro</a>
+        <button class="button" id="adminBtn">Admin</button>
+    </div>
+
+    <script>
+        document.getElementById('adminBtn').addEventListener('click', function() {
+            var senha = prompt('Digite a senha:');
+            if (senha === 'teste') {
+                window.location.href = '/relatorios';
+            } else {
+                alert('Senha incorreta. Tente novamente.');
+            }
+        });
+    </script>
+</body>
+</html>
