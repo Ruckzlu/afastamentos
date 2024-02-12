@@ -69,12 +69,12 @@
                 $.each(data, function(index, viagem){
                     $('#tabela_viagens tbody').append(
                         '<tr>' +
-                        '<td>' + viagem[0] + '</td>' +
-                        '<td>' + viagem[1] + '</td>' +
-                        '<td>' + viagem[2] + '</td>' +
-                        '<td>' + viagem[3] + '</td>' +
-                        '<td>' + viagem[4] + '</td>' +
-                        '<td><button class="delete-button">X</button></td>' + // Adiciona um botão de exclusão
+                        '<td>' + viagem.postGrad + '</td>' +
+                        '<td>' + viagem.nome + '</td>' +
+                        '<td>' + viagem.ida + '</td>' +
+                        '<td>' + viagem.volta + '</td>' +
+                        '<td>' + viagem.destino + '</td>' +
+                        '<td><button class="delete-button">X</button></td>' +
                         '</tr>'
                     );
                 });
