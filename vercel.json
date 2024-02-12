@@ -1,4 +1,7 @@
 {
+    "env": {
+        "PYTHONPATH": "api/"
+    },
     "rewrites": [
         {
             "source": "/(.*)",
